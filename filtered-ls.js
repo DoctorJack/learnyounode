@@ -1,0 +1,39 @@
+var fs = require('fs');
+var path = require('path');
+
+if(process.argv.length === 4)
+{
+   fs.readdir(process.argv[2], 
+	   	function callback (err, list) 
+	   	{
+				var filteredList = list.filter(isCorrectExtension);
+				for (var i = 0; i < filteredList.length; i++)
+		    {
+					 console.log(filteredList[i]);
+			  }
+		   });
+}
+else
+{
+	console.log("Usage: node filtered-ls.js directory extension");
+}
+
+function isCorrectExtension(file)
+{
+	if (path.extname(file) === "." + process.argv[3])
+		return true;
+	return false;
+}
+
+
+/* Official solution: 
+ *     var fs = require('fs')
+ *     var path = require('path')
+ *             
+ *     fs.readdir(process.argv[2], function (err, list) {
+ *        list.forEach(function (file) {
+ *           if (path.extname(file) === '.' + process.argv[3])
+ *              console.log(file)
+ *        })
+ *     })
+ */
